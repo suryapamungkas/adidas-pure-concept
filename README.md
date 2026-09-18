@@ -1,3 +1,5 @@
+<img width="1920" height="1080" alt="Screenshot 2026-09-18 130707" src="https://github.com/user-attachments/assets/9e5fb345-2fde-4573-b8cb-19bde76fe491" />
+
 ﻿# Adidas Pure Concept
 
 > **Apple-Inspired Adidas E-Commerce Experience**  
