@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronRight, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronRight, Sparkles } from "lucide-react";
 
 export interface NavCategory {
   id: string;
@@ -476,9 +477,11 @@ export function MegaMenu({ activeCategory, onClose, onNavigate, onMouseEnter }: 
                           onClick={(e) => handleClick(e, current.featured!.href)}
                         >
                           <div className="mega-featured-image-wrap">
-                            <img
+                            <Image
                               src={current.featured.image}
                               alt={current.featured.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 320px"
                               className="mega-featured-image"
                             />
                             <span className="mega-featured-tag">

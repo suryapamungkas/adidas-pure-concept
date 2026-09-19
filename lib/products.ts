@@ -12,7 +12,6 @@ export interface ProductHighlight {
   description: string;
   image?: string;
   stat?: { value: string; label: string };
-  badge?: string;
 }
 
 export interface LifestyleCard {
@@ -652,3 +651,61 @@ export const productsData: Record<string, ProductDetail> = {
     ],
   },
 };
+
+export interface FeaturedProduct {
+  name: string;
+  slug: string;
+  eyebrow: string;
+  description: string;
+  price: string;
+  image: string;
+  tone: "citrus" | "cloud" | "ink" | "rose";
+}
+
+export const featuredProducts: FeaturedProduct[] = [
+  {
+    name: productsData["ultraboost-light"].name,
+    slug: "/product/ultraboost-light",
+    eyebrow: "ENERGY RETURN",
+    description: "Respons tanpa jeda, dari langkah pertama hingga garis akhir.",
+    price: productsData["ultraboost-light"].price,
+    image: productsData["ultraboost-light"].heroImage,
+    tone: "citrus",
+  },
+  {
+    name: productsData["gazelle-indoor"].name,
+    slug: "/product/gazelle-indoor",
+    eyebrow: "RETRO, REFINED",
+    description: "Arsip yang kembali hidup untuk setiap ritme kota.",
+    price: productsData["gazelle-indoor"].price,
+    image: productsData["gazelle-indoor"].heroImage,
+    tone: "cloud",
+  },
+  {
+    name: productsData["predator-elite"].name,
+    slug: "/product/predator-elite",
+    eyebrow: "CONTROL REDEFINED",
+    description: "Kontrol tajam saat momen membutuhkan lebih dari sekadar cepat.",
+    price: productsData["predator-elite"].price,
+    image: productsData["predator-elite"].heroImage,
+    tone: "ink",
+  },
+  {
+    name: productsData["adizero-adios-pro"].name,
+    slug: "/product/adizero-adios-pro",
+    eyebrow: "MADE TO RACE",
+    description: "Ringan luar biasa. Dibangun untuk hari ketika rekor terasa dekat.",
+    price: productsData["adizero-adios-pro"].price,
+    image: productsData["adizero-adios-pro"].heroImage,
+    tone: "rose",
+  },
+];
+
+export function getAllProductSlugs(): string[] {
+  return Object.keys(productsData);
+}
+
+export function getProductBySlug(slug: string): ProductDetail | undefined {
+  return productsData[slug];
+}
+

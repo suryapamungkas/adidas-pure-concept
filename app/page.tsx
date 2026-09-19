@@ -1,70 +1,27 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   Check,
-  ChevronDown,
   ChevronRight,
   Heart,
-  Menu,
   Minus,
-  Moon,
   Plus,
   RotateCcw,
   Search,
-  ShoppingBag,
-  Sun,
   Truck,
-  UserRound,
   X,
 } from "lucide-react";
-import Link from "next/link";
-import { MegaMenu, navCategories } from "@/components/MegaMenu";
+import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { featuredProducts } from "@/lib/products";
 
 type Panel = "search" | "bag" | "profile" | null;
 type TechLayer = "upper" | "midsole" | "outsole";
-
-const products = [
-  {
-    name: "Ultraboost Light",
-    slug: "/product/ultraboost-light",
-    eyebrow: "ENERGY RETURN",
-    description: "Respons tanpa jeda, dari langkah pertama hingga garis akhir.",
-    price: "Rp3.000.000",
-    image: "/images/adidas-ultraboost.jpg",
-    tone: "citrus",
-  },
-  {
-    name: "Gazelle Indoor",
-    slug: "/product/gazelle-indoor",
-    eyebrow: "RETRO, REFINED",
-    description: "Arsip yang kembali hidup untuk setiap ritme kota.",
-    price: "Rp1.800.000",
-    image: "/images/adidas-gazelle.jpg",
-    tone: "cloud",
-  },
-  {
-    name: "Predator Elite",
-    slug: "/product/predator-elite",
-    eyebrow: "CONTROL REDEFINED",
-    description: "Kontrol tajam saat momen membutuhkan lebih dari sekadar cepat.",
-    price: "Rp4.500.000",
-    image: "/images/adidas-predator.jpg",
-    tone: "ink",
-  },
-  {
-    name: "Adizero Adios Pro 4",
-    slug: "/product/adizero-adios-pro",
-    eyebrow: "MADE TO RACE",
-    description: "Ringan luar biasa. Dibangun untuk hari ketika rekor terasa dekat.",
-    price: "Rp4.200.000",
-    image: "/images/adidas-adizero.jpg",
-    tone: "rose",
-  },
-];
 
 const techCopy: Record<TechLayer, { title: string; copy: string; number: string }> = {
   upper: {
@@ -84,33 +41,15 @@ const techCopy: Record<TechLayer, { title: string; copy: string; number: string 
   },
 };
 
-function AdidasMark() {
-  return (
-    <span className="brand" aria-label="Adidas Pure Concept">
-      <svg aria-hidden="true" viewBox="0 0 56 36" className="brand-mark">
-        <path d="M3 31 16 8l7 4-11 19H3Z" />
-        <path d="m18 31 14-25 7 4-12 21h-9Z" />
-        <path d="M34 31 47 8l7 4-11 19h-9Z" />
-      </svg>
-      <span>Adidas Pure Concept</span>
-    </span>
-  );
-}
-
 export default function Home() {
-  const [theme, setTheme] = useState<"light" | "night">("light");
-  const [menuOpen, setMenuOpen] = useState(false);
   const [panel, setPanel] = useState<Panel>(null);
   const [cartCount, setCartCount] = useState(0);
   const [selectedColor, setSelectedColor] = useState("Cloud White / Core Black");
   const [selectedLayer, setSelectedLayer] = useState<TechLayer>("upper");
   const [notice, setNotice] = useState("");
-  const [activeNav, setActiveNav] = useState<string | null>(null);
-  const [mobileExpandedCat, setMobileExpandedCat] = useState<string | null>(null);
 
   const dialogRef = useRef<HTMLDialogElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const navTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
@@ -118,45 +57,9 @@ export default function Home() {
   });
   const heroParallaxY = useTransform(heroProgress, [0, 1], ["0%", "18%"]);
 
-  useEffect(() => {
-    const savedTheme = window.localStorage.getItem("adidas-theme");
-    if (savedTheme === "night") setTheme("night");
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem("adidas-theme", theme);
-  }, [theme]);
-
-  // Keyboard support: Escape closes Mega Menu & Dialogs
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setActiveNav(null);
-        if (panel) closePanel();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [panel]);
-
-  const handleNavMouseEnter = (id: string) => {
-    if (navTimeoutRef.current) {
-      clearTimeout(navTimeoutRef.current);
-    }
-    setActiveNav(id);
-  };
-
-  const handleNavMouseLeave = () => {
-    navTimeoutRef.current = setTimeout(() => {
-      setActiveNav(null);
-    }, 180);
-  };
-
-  const handleHeaderMouseEnter = () => {
-    if (navTimeoutRef.current) {
-      clearTimeout(navTimeoutRef.current);
-    }
+  const closePanel = () => {
+    dialogRef.current?.close();
+    setPanel(null);
   };
 
   const announce = (message: string) => {
@@ -165,14 +68,8 @@ export default function Home() {
   };
 
   const openPanel = (nextPanel: Exclude<Panel, null>) => {
-    setActiveNav(null);
     setPanel(nextPanel);
     window.requestAnimationFrame(() => dialogRef.current?.showModal());
-  };
-
-  const closePanel = () => {
-    dialogRef.current?.close();
-    setPanel(null);
   };
 
   const addToBag = (productName: string) => {
@@ -190,153 +87,13 @@ export default function Home() {
     <>
       <a className="skip-link" href="#content">Lewati ke konten utama</a>
 
-      <header
-        className="site-header"
-        onMouseEnter={handleHeaderMouseEnter}
-        onMouseLeave={handleNavMouseLeave}
-      >
-        <nav className="nav-shell" aria-label="Navigasi utama">
-          <a
-            href="#top"
-            className="brand-link"
-            aria-label="Beranda Adidas Pure Concept"
-            onClick={() => setActiveNav(null)}
-          >
-            <AdidasMark />
-          </a>
-
-          {/* Desktop Navigation with Apple-Style Mega Menu triggers */}
-          <div className="desktop-nav" role="menubar">
-            {navCategories.map((category) => (
-              <button
-                key={category.id}
-                type="button"
-                className={`nav-item-btn ${activeNav === category.id ? "active-nav" : ""}`}
-                onMouseEnter={() => handleNavMouseEnter(category.id)}
-                onFocus={() => handleNavMouseEnter(category.id)}
-                onClick={() => {
-                  setActiveNav(activeNav === category.id ? null : category.id);
-                }}
-                aria-expanded={activeNav === category.id}
-                aria-haspopup="true"
-                role="menuitem"
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="nav-actions">
-            <button
-              className="icon-button search-trigger"
-              type="button"
-              onClick={() => openPanel("search")}
-              aria-label="Cari produk"
-            >
-              <Search aria-hidden="true" />
-            </button>
-            <button
-              className="icon-button bag-trigger"
-              type="button"
-              onClick={() => openPanel("bag")}
-              aria-label={`Tas belanja, ${cartCount} produk`}
-            >
-              <ShoppingBag aria-hidden="true" />
-              {cartCount > 0 && <span className="cart-count" aria-hidden="true">{cartCount}</span>}
-            </button>
-            <button
-              className="icon-button profile-trigger"
-              type="button"
-              onClick={() => openPanel("profile")}
-              aria-label="Akun saya"
-            >
-              <UserRound aria-hidden="true" />
-            </button>
-            <button
-              className="icon-button theme-trigger"
-              type="button"
-              onClick={() => setTheme(theme === "light" ? "night" : "light")}
-              aria-label={theme === "light" ? "Gunakan tampilan gelap" : "Gunakan tampilan terang"}
-            >
-              {theme === "light" ? <Moon aria-hidden="true" /> : <Sun aria-hidden="true" />}
-            </button>
-            <button
-              className="icon-button menu-trigger"
-              type="button"
-              onClick={() => setMenuOpen((open) => !open)}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
-            >
-              {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Apple-Style Interactive Mega Menu Dropdown */}
-        <MegaMenu
-          activeCategory={activeNav}
-          onClose={() => setActiveNav(null)}
-          onMouseEnter={handleHeaderMouseEnter}
-        />
-
-        {/* Mobile Accordion Menu */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              id="mobile-menu"
-              className="mobile-menu"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-            >
-              {navCategories.map((cat) => {
-                const isExpanded = mobileExpandedCat === cat.id;
-                return (
-                  <div key={cat.id} className="mobile-accordion-item">
-                    <button
-                      type="button"
-                      className="mobile-accordion-trigger"
-                      onClick={() => setMobileExpandedCat(isExpanded ? null : cat.id)}
-                      aria-expanded={isExpanded}
-                    >
-                      <span>{cat.label}</span>
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          isExpanded ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          className="mobile-accordion-content"
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                        >
-                          {cat.primaryLinks.map((link) => (
-                            <a
-                              key={link.title}
-                              href={link.href}
-                              onClick={() => {
-                                setMenuOpen(false);
-                                setMobileExpandedCat(null);
-                              }}
-                            >
-                              {link.title}
-                            </a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+      {/* Shared Global Navigation Header */}
+      <Header
+        cartCount={cartCount}
+        onOpenSearch={() => openPanel("search")}
+        onOpenBag={() => openPanel("bag")}
+        onOpenProfile={() => openPanel("profile")}
+      />
 
       <main id="content" tabIndex={-1}>
         {/* Hero Section (Samba OG) */}
@@ -369,10 +126,13 @@ export default function Home() {
               style={{ y: heroParallaxY }}
             >
               <span className="product-glow" aria-hidden="true" />
-              <img
-                className="hero-shoe"
+              <Image
                 src="/images/adidas-samba-hero.jpg"
                 alt="Sepatu bergaya Samba warna putih dan hitam"
+                width={704}
+                height={596}
+                priority
+                className="hero-shoe"
               />
               <span className="product-caption">CLOUD WHITE / CORE BLACK</span>
             </motion.div>
@@ -380,12 +140,12 @@ export default function Home() {
           <div className="hero-footer">
             <span>Direkayasa untuk hari ini. Diingat selamanya.</span>
             <a href="#originals" aria-label="Gulir ke koleksi pilihan">
-              Gulir untuk menjelajah <span aria-hidden="true">↓</span>
+              Gulir untuk menjelajah <span aria-hidden="true">?</span>
             </a>
           </div>
         </section>
 
-        {/* Sub-Hero 1: Apple Benchmark Showcase (Ultraboost Light) - Matching Screenshot 1 */}
+        {/* Sub-Hero 1: Apple Benchmark Showcase (Ultraboost Light) */}
         <section className="sub-hero-card" id="running" aria-labelledby="ultraboost-headline">
           <div className="sub-hero-copy">
             <p className="eyebrow">RUNNING INNOVATION</p>
@@ -393,10 +153,7 @@ export default function Home() {
             <p className="sub-hero-tagline">Kini dengan Light BOOST dan Continental™.</p>
             <p className="sub-hero-note">Bantalan 30% lebih ringan dengan pengembalian energi maksimal.</p>
             <div className="sub-hero-actions">
-              <Link
-                href="/product/ultraboost-light"
-                className="button button-primary"
-              >
+              <Link href="/product/ultraboost-light" className="button button-primary">
                 Beli Sekarang
               </Link>
               <Link href="/product/ultraboost-light" className="text-link">
@@ -404,10 +161,13 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="sub-hero-image-stage">
-            <img
+          <div className="sub-hero-image-stage relative">
+            <Image
               src="/images/adidas-ultraboost.jpg"
               alt="Sepatu lari Adidas Ultraboost Light melayang"
+              width={608}
+              height={380}
+              className="object-contain"
             />
           </div>
         </section>
@@ -420,10 +180,7 @@ export default function Home() {
             <p className="sub-hero-tagline">Kini dengan Strikeskin dan ControlFrame 2.0.</p>
             <p className="sub-hero-note">Akurasi tajam saat momen membutuhkan lebih dari sekadar cepat.</p>
             <div className="sub-hero-actions">
-              <Link
-                href="/product/predator-elite"
-                className="button button-primary"
-              >
+              <Link href="/product/predator-elite" className="button button-primary">
                 Beli Sekarang
               </Link>
               <Link href="/product/predator-elite" className="text-link">
@@ -431,10 +188,13 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="sub-hero-image-stage">
-            <img
+          <div className="sub-hero-image-stage relative">
+            <Image
               src="/images/adidas-predator.jpg"
               alt="Sepatu sepak bola Adidas Predator Elite"
+              width={608}
+              height={380}
+              className="object-contain"
             />
           </div>
         </section>
@@ -461,9 +221,9 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* 2x2 Bento Product Grid with direct Detail page links */}
+        {/* 2x2 Bento Product Grid sourced from lib/products.ts */}
         <section className="product-grid" aria-label="Koleksi unggulan">
-          {products.map((product, index) => (
+          {featuredProducts.map((product, index) => (
             <motion.article
               className={`product-card ${product.tone}`}
               key={product.name}
@@ -486,12 +246,15 @@ export default function Home() {
                   <span>{product.price}</span>
                 </div>
               </div>
-              <div className="card-image-wrap">
+              <div className="card-image-wrap relative">
                 <Link href={product.slug} aria-label={`Lihat detail ${product.name}`}>
-                  <img
+                  <Image
                     src={product.image}
                     alt={`${product.name} dalam tampilan produk`}
-                    loading={index < 2 ? "eager" : "lazy"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={index < 2}
+                    className="object-cover"
                   />
                 </Link>
               </div>
@@ -510,8 +273,14 @@ export default function Home() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="detail-image-wrap">
-            <img src="/images/adidas-samba-hero.jpg" alt="Detail sepatu klasik putih dengan tiga garis" loading="lazy" />
+          <div className="detail-image-wrap relative">
+            <Image
+              src="/images/adidas-samba-hero.jpg"
+              alt="Detail sepatu klasik putih dengan tiga garis"
+              fill
+              sizes="(max-width: 768px) 100vw, 55vw"
+              className="object-cover"
+            />
             <span className="detail-stamp" aria-hidden="true">1950<br />NOW</span>
           </div>
           <div className="detail-copy">
@@ -596,8 +365,14 @@ export default function Home() {
             <span className="tech-label label-upper">01 / PRIMEKNIT</span>
             <span className="tech-label label-midsole">02 / LIGHT BOOST</span>
             <span className="tech-label label-outsole">03 / CONTINENTAL™</span>
-            <div className="shoe-layer layer-upper">
-              <img src="/images/adidas-exploded-view.jpg" alt="Lapisan upper" />
+            <div className="shoe-layer layer-upper relative">
+              <Image
+                src="/images/adidas-exploded-view.jpg"
+                alt="Lapisan upper"
+                fill
+                sizes="(max-width: 768px) 100vw, 600px"
+                className="object-cover"
+              />
             </div>
             <div className="shoe-layer layer-midsole"><span /></div>
             <div className="shoe-layer layer-outsole"><span /></div>
@@ -670,7 +445,13 @@ export default function Home() {
             {cartCount > 0 ? (
               <>
                 <div className="bag-item">
-                  <img src="/images/adidas-samba-hero.jpg" alt="Samba OG" />
+                  <Image
+                    src="/images/adidas-samba-hero.jpg"
+                    alt="Samba OG"
+                    width={88}
+                    height={88}
+                    className="rounded-lg object-cover"
+                  />
                   <div>
                     <strong>Samba OG</strong>
                     <span>Cloud White / Core Black</span>
