@@ -145,7 +145,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Sub-Hero 1: Apple Benchmark Showcase (Ultraboost Light) */}
+        {/* Sub-Hero 1: Performance Showcase (Ultraboost Light) */}
         <section className="sub-hero-card" id="running" aria-labelledby="ultraboost-headline">
           <div className="sub-hero-copy">
             <p className="eyebrow">RUNNING INNOVATION</p>
@@ -172,7 +172,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Sub-Hero 2: Apple Benchmark Showcase (Predator Elite) */}
+        {/* Sub-Hero 2: Performance Showcase (Predator Elite) */}
         <section className="sub-hero-card" id="football" aria-labelledby="predator-headline">
           <div className="sub-hero-copy">
             <p className="eyebrow">CONTROL REDEFINED</p>
@@ -420,7 +420,7 @@ export default function Home() {
         </motion.section>
       </main>
 
-      {/* Apple-Style Shared Footer */}
+      {/* Global Shared Footer */}
       <Footer />
 
       {/* Interactive Modal Dialogs (Search, Cart, Profile) */}

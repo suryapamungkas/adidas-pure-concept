@@ -2,8 +2,8 @@
 
 ﻿# Adidas Pure Concept
 
-> **Apple-Inspired Adidas E-Commerce Experience**  
-> Eksplorasi desain web e-commerce modern yang memadukan siluet ikonik sepatu Adidas dengan filosofi desain minimalis, tipografi tegas, dan interaksi halus khas Apple.
+> **Pure Adidas Digital E-Commerce Experience**  
+> Eksplorasi desain web e-commerce modern orisinal yang memadukan siluet ikonik sepatu Adidas dengan estetika visual minimalis, tipografi presisi, dan interaksi digital mutakhir.
 
 ---
 
@@ -17,7 +17,7 @@
 
 ## ✨ Fitur Utama
 
-- **🍎 Apple-Style Sticky Header & Interactive Mega Menu**
+- **✨ Pure Sticky Header & Interactive Mega Menu**
   - Efek *glassmorphism* (`backdrop-filter: blur`) dengan kontras bersih.
   - Dropdown navigasi multi-kolom interaktif untuk kategori: *Originals, Running, Football, Outdoor, Kolaborasi, dan Dukungan*.
   - Transisi instan dan mulus antar kategori (*zero-delay switching* dengan Framer Motion).
@@ -51,14 +51,14 @@
 ```text
 adidas-pure-concept/
 ├── app/
-│   ├── globals.css            # Desain sistem, warna Apple, dan utilitas responsif
+│   ├── globals.css            # Desain sistem monokromatik, token warna, dan utilitas responsif
 │   ├── layout.tsx             # Root layout & metadata website
 │   ├── page.tsx               # Halaman beranda interaktif Adidas Pure Concept
 │   └── product/
 │       └── [slug]/
 │           └── page.tsx       # Halaman detail produk (Samba, Ultraboost, dll.)
 ├── components/
-│   ├── Footer.tsx             # Footer direktori Apple-style multi-kolom
+│   ├── Footer.tsx             # Footer direktori multi-kolom komprehensif
 │   └── MegaMenu.tsx           # Dropdown Mega Menu interaktif berkinerja tinggi
 ├── lib/
 │   └── products.ts            # Data katalog produk, spesifikasi & varian warna

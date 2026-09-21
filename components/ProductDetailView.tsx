@@ -68,7 +68,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
         onOpenBag={() => setPurchaseModalOpen(true)}
       />
 
-      {/* Sticky Apple Product Sub-Navigation Bar */}
+      {/* Sticky Product Sub-Navigation Bar */}
       <div className="product-subnav-bar">
         <div className="product-subnav-container">
           <div className="product-subnav-left">
@@ -126,7 +126,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
       </div>
 
       <main id="content" tabIndex={-1}>
-        {/* Section 1: Hero Section (Apple-Style High Impact Staging) */}
+        {/* Section 1: Hero Section (High Impact Staging) */}
         <section className="product-detail-hero" id="overview">
           <div className="product-detail-hero-copy">
             <p className="eyebrow">{product.eyebrow}</p>
@@ -442,7 +442,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
         </section>
       </main>
 
-      {/* Apple-Style Shared Footer */}
+      {/* Global Shared Footer */}
       <Footer />
 
       {/* Quick Purchase / Size Selector Dialog */}

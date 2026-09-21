@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
-        {/* Footnotes / Disclaimers (Apple Style) */}
+        {/* Footnotes / Disclaimers */}
         <div className="footer-disclaimers">
           <p>
             1. Pengembalian gratis 30 hari berlaku untuk produk dalam kondisi baru dengan tag dan kemasan asli.
@@ -17,7 +17,7 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Multi-Column Apple Directory */}
+        {/* Multi-Column Directory */}
         <div className="footer-directory">
           <div className="footer-col">
             <h3>Belanja dan Belajar</h3>

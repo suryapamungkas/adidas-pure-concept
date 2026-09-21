@@ -92,7 +92,7 @@ export function Header({
           <AdidasMark />
         </Link>
 
-        {/* Desktop Navigation with Apple-Style Mega Menu triggers */}
+        {/* Desktop Navigation with Interactive Mega Menu triggers */}
         <div className="desktop-nav" role="menubar">
           {navCategories.map((category) => (
             <button
@@ -179,7 +179,7 @@ export function Header({
         </div>
       </nav>
 
-      {/* Apple-Style Interactive Mega Menu Dropdown */}
+      {/* Interactive Mega Menu Dropdown */}
       <MegaMenu
         activeCategory={activeNav}
         onClose={() => setActiveNav(null)}

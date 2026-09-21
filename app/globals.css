@@ -23,7 +23,7 @@
     --shadow-lift: 0 1.5rem 3.5rem rgba(18, 20, 25, 0.17);
     --page-pad: clamp(1.25rem, 4vw, 4.75rem);
     --display: "Arial Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --body: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+    --body: "Inter", system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   :root[data-theme="night"] {
@@ -569,7 +569,7 @@
   .newsletter form > p a { color: var(--ink); text-decoration: underline; text-underline-offset: .15em; }
 
   /* ==========================================================================
-     Apple-Style Footer Styles (Matching Screenshot)
+     Signature Footer Styles (Matching Design Layout)
      ========================================================================== */
   .site-footer {
     background: var(--canvas-soft);
@@ -724,7 +724,7 @@
   .bag-item svg { inline-size: .9rem; }
 
   /* ==========================================================================
-     Apple-Style Mega Menu Styles
+     Interactive Mega Menu Styles
      ========================================================================== */
   .mega-menu-backdrop {
     position: fixed;
@@ -961,7 +961,7 @@
     font-size: 0.75rem;
   }
 
-  /* Sub-Hero Section (Apple Benchmark Matching Screenshot 1) */
+  /* Sub-Hero Section (Precision Benchmark Showcase) */
   .sub-hero-card {
     position: relative;
     display: flex;
@@ -1074,7 +1074,7 @@
   }
 
   /* ==========================================================================
-     Apple-Style Product Detail Page Styles (Matching Screenshots 2, 3, 4, 5)
+     Product Detail Page Styles (Interactive Visual Showcase)
      ========================================================================== */
   .product-subnav-bar {
     position: sticky;
@@ -1286,7 +1286,7 @@
     color: var(--ink);
   }
 
-  /* Highlights Section (Apple Bento Carousel) */
+  /* Highlights Section (Interactive Bento Carousel) */
   .product-highlights-section {
     padding: clamp(4.5rem, 9vw, 8rem) var(--page-pad);
     background: var(--canvas);

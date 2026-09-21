@@ -377,7 +377,7 @@ export function MegaMenu({ activeCategory, onClose, onNavigate, onMouseEnter }: 
                   exit={{ opacity: 0, y: -3 }}
                   transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {/* Column 1: Primary Links (Large Bold Apple Style) */}
+                  {/* Column 1: Primary Links */}
                   <div className="mega-col mega-col-primary">
                     <p className="mega-eyebrow">{current.eyebrows.primary}</p>
                     <ul className="mega-primary-list">
@@ -463,7 +463,7 @@ export function MegaMenu({ activeCategory, onClose, onNavigate, onMouseEnter }: 
                       ))}
                     </ul>
 
-                    {/* Featured Mini Showcase Card (Apple Style) */}
+                    {/* Featured Mini Showcase Card */}
                     {current.featured && (
                       <motion.div
                         className="mega-featured-card"
